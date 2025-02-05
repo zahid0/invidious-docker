@@ -64,10 +64,6 @@ services:
   invidious-db:
     image: docker.io/library/postgres:14
     restart: unless-stopped
-    volumes:
-      - postgresdata:/var/lib/postgresql/data
-      - ./config/sql:/config/sql
-      - ./docker/init-invidious-db.sh:/docker-entrypoint-initdb.d/init-invidious-db.sh
     environment:
       POSTGRES_DB: invidious
       POSTGRES_USER: kemal
@@ -75,8 +71,6 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U kemal -d invidious"]
 
-volumes:
-  postgresdata:
 EOF
 
 docker compose pull
